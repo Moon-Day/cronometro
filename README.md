@@ -6,6 +6,7 @@ Este é um projeto simples de cronômetro implementado em JavaScript. O cronôme
 Funcionalidades<br>
 Iniciar o cronômetro<br>
 Pausar o cronômetro<br>
+Parar o cronômetro<br>
 
 Parar o cronômetro e reiniciá-lo do zero<br>
 Tecnologias utilizadas<br>
