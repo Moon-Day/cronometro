@@ -9,25 +9,39 @@
     <style>
         body {
             background-color: black;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
         }
 
         h1 {
             color: white;
+           
         }
-
+    
         div {
             text-align: center;
+            transition: 1s;
+            padding: 10px;
+            border-radius: 10px;
         }
-
+ 
         button {
             height: 2.2em;
             width: 5.5em;
             border: none;
             color: white;
+            border-radius: 5px;
+            transition: 0.5s;
         }
 
         button:hover {
             cursor: pointer;
+            width: 7em;
+            height: 4em;
         }
 
         .start-btn {
@@ -45,6 +59,7 @@
 </head>
 
 <body>
+
     <div>
         <h1 id='watch'>00:00:00</h1>
         <button class="start-btn" onclick="start()">Start</button>
@@ -56,8 +71,13 @@
         var min = 0
         var hr = 0
 
+// ==============================================================================
+        // essa variavel sera usa da armazenar o ID do intervalo definido pela fução
+        // abaixo, que sera usada para atualizar o relógio regularmente
         var interval
 
+        // se o numero for menor que 10 adicione um zero a frente do numero
+       // concatenando com o digito
         function twoDigits(digit) {
             if (digit < 10) {
                 return ('0' + digit)
@@ -65,20 +85,60 @@
                 return (digit)
             }
         }
+// ==============================================================================
+        // função watch responsavel por atualizar o relogio
+        function watch() {
+            //adicione 1 a variavel sec
+            sec++
+            if (sec == 60) {
+                min++
+                sec = 0
+                //se a variavel "sec" for igual a 60 adicione 1 a variavel "min"
+            
+                if (min == 60) {
+                    min = 0
+                    hr++
+                    //se a variavel "min" for igual a 60 adicione 1 a variavel "hr"
+                }
+            }
+
+            //atualiza o texto do elemento HTML com ID "watch" com os valores
+            // formatados das horas , minutos e segundos, usando a função 
+            //twoDigits() para garantir que cada valor tenha dois digitos.
+            
+            document.getElementById('watch').innerText = twoDigits(hr) + ':' + twoDigits(min) + ':' + twoDigits(sec)
+        }
+
+//// ==============================================================================
 
         function start() {
+
+            //função watch responsavel por atualizar o relogio adicionando 1 a cada
+            //segundo depois minutos e horas quando eles chegam a 60
             watch()
+
+            //setInterval é uma função que cria um intervalo de tempo que executa uma determinada função repetidamente em um determinado periodo (10 milissegundos = 100 vezes por segundo)
+            //coloco a função setInterval em uma variavel para usar depois para pausar e parar o cronometro 
+
+            //setInterval = definir intervalo
             interval = setInterval(watch, 10)
 
 
         }
+// ==============================================================================
 
         function pause() {
+            //A função pause para o intervalor de tempo (setInterval)
+
+            //clearInterval = limpar intervalor)
             clearInterval(interval)
 
         }
 
         function stop() {
+            //a função clearInterval tira a variavel interval parando a função setIterval e alterando os valors das variaveis sec, min para zero e
+            //adicionando uma caixa de alerta com o tempo em que foi parado 
+            // e colocando os caracteres "00:00:00" no cronometro
             clearInterval(interval)
             sec = 0
             min = 0
@@ -86,19 +146,10 @@
             document.getElementById('watch').innerText = '00:00:00'
 
         }
+        
 
-        function watch() {
-            sec++
-            if (sec == 60) {
-                min++
-                sec = 0
-                if (min == 60) {
-                    min = 0
-                    hr++
-                }
-            }
-            document.getElementById('watch').innerText = twoDigits(hr) + ':' + twoDigits(min) + ':' + twoDigits(sec)
-        }
+        //===========================================================================
+
     </script>
 </body>
 
